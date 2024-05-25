@@ -9,9 +9,10 @@
 </head>
 <body>
     {% include 'nav.html' %}
-    <main id="main">
+    <main id="play">
         <section>
-            <h1>메인</h1>
+            <h1>RC Car Camera</h1>
+            <img src="{{ url_for('video_feed') }}" width="640" height="480">
         </section>
     </main>
 </body>

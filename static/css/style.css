@@ -1,0 +1,54 @@
+/* font import */
+/* noto sans korea */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+/* 공통 */
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    color: #333;
+    font-size: 24px;
+    font-weight: 500;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6, b, strong{
+    font-weight: 600;
+}
+main{
+    padding: 50px;
+}
+
+/* 상단 네비바 */
+nav{
+    font-size: 38px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    box-shadow: 3px 3px 5px rgba(46, 46, 46, 0.449);
+}
+nav ul{
+    display: flex;
+    align-items: center;
+}
+nav ul li{
+    margin: 0 10px;
+}
+
+
+/* play */
+#play{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#play h1{
+    text-align: center;
+    font-size: 40px;
+}

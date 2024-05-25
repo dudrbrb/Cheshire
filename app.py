@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import pickle
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # 라즈베리 파이 서버의 주소와 포트
 HOST_RPI = '192.168.137.29'
@@ -37,6 +37,14 @@ def gen_frames():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/introduce')
+def introduce():
+    return render_template('introduce.html')
+
+@app.route('/play')
+def play():
+    return render_template('play.html')
 
 # 비디오 스트리밍을 제공하는 라우트
 @app.route('/video_feed')
