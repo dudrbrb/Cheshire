@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 
+# DC Motors pin configuration
 dcMotors = [22, 13, 23, 19, 21, 18, 20, 12]
 wheels = []
 MOT_FREQ = 1000.0
@@ -8,7 +9,6 @@ SPEED_MIN = 10
 SPEED_MAX = 100
 
 forward = [True, False]
-
 backward = [False, True]
 STOP = [False, False]
 
@@ -25,25 +25,25 @@ def initMotor():
         wheels.append(wheel)
 
 def goForward(spd):
-    if spd < 0 : 
+    if spd < 0: 
         spd = 0
     
     spd += SPEED_MIN
 
-    if spd > SPEED_MAX : 
+    if spd > SPEED_MAX: 
         spd = SPEED_MAX
 
     for i in range(0, len(dcMotors), 2):
-        GPIO.output(dcMotors[i], STOP[i%2])
-        wheels[i//2].ChangeDutyCycle(0.0)
+        GPIO.output(dcMotors[i], forward[i%2])
+        wheels[i // 2].ChangeDutyCycle(SPEED_MAX-spd)
 
 def stopMotor():
     for i in range(0, len(dcMotors), 2):
         GPIO.output(dcMotors[i], STOP[i%2])
-        wheels[i//2].ChangeDutyCycle(0.0)
+        wheels[i // 2].ChangeDutyCycle(0.0)
 
 def goBackward(spd):
-    if spd < 0 :
+    if spd < 0:
         spd = 0
     
     spd += SPEED_MIN
@@ -53,7 +53,7 @@ def goBackward(spd):
 
     for i in range(0, len(dcMotors), 2):
         GPIO.output(dcMotors[i], backward[i%2])
-        wheels[i//2].ChangeDuty(spd)
+        wheels[i // 2].ChangeDutyCycle(spd)
 
 def turnLeft(spd):
     if spd < 0:
@@ -64,13 +64,13 @@ def turnLeft(spd):
     if spd > SPEED_MAX:
         spd = SPEED_MAX
 
-    for i in range(0, len(dcMotors)//2, 2):
+    for i in range(0, len(dcMotors) // 2, 2):
         GPIO.output(dcMotors[i], forward[i%2])
-        wheels[i//2].ChangeDutyCycle(SPEED_MAX - spd)
+        wheels[i // 2].ChangeDutyCycle(SPEED_MAX - spd)
 
-    for i in range(len(dcMotors)//1, len(dcMotors), 2):
+    for i in range(len(dcMotors) // 2, len(dcMotors), 2):
         GPIO.output(dcMotors[i], backward[i%2])
-        wheels[i//2].ChangeDutyCycle(spd)
+        wheels[i // 2].ChangeDutyCycle(spd)
 
 def turnRight(spd):
     if spd < 0:
@@ -81,18 +81,14 @@ def turnRight(spd):
     if spd > SPEED_MAX:
         spd = SPEED_MAX
 
-    for i in range(0, len(dcMotors)//2, 2):
+    for i in range(0, len(dcMotors) // 2, 2):
         GPIO.output(dcMotors[i], backward[i%2])
-        wheels[i//2].ChangeDutyCycle(spd)
+        wheels[i // 2].ChangeDutyCycle(spd)
 
-    for i in range(len(dcMotors)//2, len(dcMotors), 2):
+    for i in range(len(dcMotors) // 2, len(dcMotors), 2):
         GPIO.output(dcMotors[i], forward[i%2])
-        wheels[i//2].ChangeDutyCycle(SPEED_MAX - spd)
+        wheels[i // 2].ChangeDutyCycle(SPEED_MAX - spd)
 
 def exitMotor():
     for i in range(0, len(dcMotors), 2):
-        wheels[i//2].stop()
-
-
-
-
+        wheels[i // 2].stop()
