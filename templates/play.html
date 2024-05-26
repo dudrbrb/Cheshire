@@ -5,7 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RC Car Control</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
+    <script>
+        let keyState = {};
+
+        document.addEventListener('keydown', (event) => {
+            if (keyState[event.key] !== true) {
+                keyState[event.key] = true;
+                sendCommand(event.key);
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            keyState[event.key] = false;
+            sendCommand('stop');
+            console.log('멈춰!!!!!!!!')
+        });
+
+        function sendCommand(key) {
+            let command = '';
+            switch (key) {
+                case 'ArrowUp':
+                    console.log('뒤')
+                    command = 'backward';
+                    break;
+                case 'ArrowDown':
+                    console.log('앞')
+                    command = 'forward';
+                    break;
+                case 'ArrowLeft':
+                    console.log('좌')
+                    command = 'left';
+                    break;
+                case 'ArrowRight':
+                    console.log('우')
+                    command = 'right';
+                    break;
+                case ' ':
+                    console.log('멈춤')
+                    command = 'stop';
+                    break;
+                case 'Escape':
+                    console.log('종료')
+                    command = 'exit';
+                    break;
+            }
+            if (command !== '') {
+                fetch('/control', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'command=' + command,
+                });
+            }
+        }
+    </script>
 </head>
 <body>
     {% include 'nav.html' %}
@@ -17,3 +71,4 @@
     </main>
 </body>
 </html>
+

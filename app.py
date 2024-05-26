@@ -10,6 +10,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 # 라즈베리 파이 서버의 주소와 포트
 HOST_RPI = '192.168.137.29'
 PORT_VIDEO = 8089
+PORT_CONTROL = 8090
 
 # 라즈베리 파이로부터 영상을 수신하는 함수
 def gen_frames():
@@ -44,6 +45,15 @@ def play():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/control', methods=['POST'])
+def control():
+    command = request.form['command']
+    client_control = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_control.connect((HOST_RPI, PORT_CONTROL))
+    client_control.send(command.encode('utf-8'))
+    client_control.close()
+    return '', 204
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
