@@ -1,18 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheshire</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+{% extends 'base.html' %}
 
-</head>
-<body>
-    {% include 'nav.html' %}
-    <main id="introduce">
-        <section>
-            <h1>소개페이지</h1>
-        </section>
-    </main>
-</body>
-</html>
+{% block extra_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/introduce.css') }}">
+{% endblock %}
+
+{% block nav %}
+    {% with current_page='introduce' %}
+        {% include 'nav.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <section id="introduce">
+        <div class="wrapper">
+            <b>지금까지 이런 게임은 없었다!</b>
+            <p>
+                현실의 RC카와 MR(Mixed Reality)가 만나
+                새로운 환경의 플레이를 제공합니다.
+                <br><br>
+                나의 RC카의 시점에서 
+                화려한 이펙트와 함께 게임을 즐길 수 있습니다.
+                <br><br>
+                필드에서 공격 아이템을 수집하여
+                상대방에게 사용하세요!<br>
+                어쩌면 특별한 아이템을 만날 수도 있습니다.
+                <br><br>
+                100초 동안 상대방과 겨루다가 
+                마지막에 더 많은 HP를 가진 사람이 승리합니다!
+                <br><br>
+                지금 바로 만나보세요!
+                <br><br>
+            </p>
+            <a href="/play">바로가기 →</a>
+        </div>
+    </section>
+{% endblock %}

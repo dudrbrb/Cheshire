@@ -32,15 +32,15 @@ def gen_frames():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_page='home')
 
 @app.route('/introduce')
 def introduce():
-    return render_template('introduce.html')
+    return render_template('introduce.html', current_page='introduce')
 
 @app.route('/play')
 def play():
-    return render_template('play.html')
+    return render_template('play.html', current_page='play')
 
 @app.route('/video_feed')
 def video_feed():

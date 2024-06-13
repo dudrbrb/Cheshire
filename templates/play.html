@@ -1,51 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RC Car Control</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% extends 'base.html' %}
+
+{% block nav %}
+    {% with current_page='play' %}
+        {% include 'nav.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <section id="play">
+        <section>
+            <h1>RC Car Camera</h1>
+            <img src="{{ url_for('video_feed') }}" width="640" height="480">
+        </section>
+    </section>
+{% endblock %}
+
+{% block extra_scripts %}
     <script>
-        let keyState = {};
-
-        document.addEventListener('keydown', (event) => {
-            if (keyState[event.key] !== true) {
-                keyState[event.key] = true;
-                sendCommand(event.key);
-            }
-        });
-
-        document.addEventListener('keyup', (event) => {
-            keyState[event.key] = false;
-            sendCommand('stop');
-            console.log('멈춰!!!!!!!!')
-        });
-
-        function sendCommand(key) {
+        document.addEventListener('keydown', function(event) {
             let command = '';
-            switch (key) {
+            switch (event.key) {
                 case 'ArrowUp':
-                    console.log('뒤')
                     command = 'backward';
                     break;
                 case 'ArrowDown':
-                    console.log('앞')
                     command = 'forward';
                     break;
                 case 'ArrowLeft':
-                    console.log('좌')
                     command = 'left';
                     break;
                 case 'ArrowRight':
-                    console.log('우')
                     command = 'right';
                     break;
                 case ' ':
-                    console.log('멈춤')
                     command = 'stop';
                     break;
                 case 'Escape':
-                    console.log('종료')
                     command = 'exit';
                     break;
             }
@@ -58,17 +48,6 @@
                     body: 'command=' + command,
                 });
             }
-        }
+        });
     </script>
-</head>
-<body>
-    {% include 'nav.html' %}
-    <main id="play">
-        <section>
-            <h1>RC Car Camera</h1>
-            <img src="{{ url_for('video_feed') }}" width="640" height="480">
-        </section>
-    </main>
-</body>
-</html>
-
+{% endblock %}

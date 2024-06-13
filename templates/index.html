@@ -1,19 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RC Car Control</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
- 
-</head>
-<body>
-    {% include 'nav.html' %}
-    <main id="main">
-        <section>
-            <h1>Main</h1>
-            
-        </section>
-    </main>
-</body>
-</html>
+
+{% extends 'base.html' %}
+{% block nav %}
+    {% with current_page='home' %}
+        {% include 'nav.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <section id="main">
+        <div class="wrapper">
+            <div class="title">
+                <h1 class="oswald">CHESHIRE</h1>
+                <p class="oswald">Mixed Reality with RC-Car</p>
+            </div>
+        
+            <div class="box">
+                <a href="/introduce">
+                    <b>INTRODUCE</b>
+                    <p>게임 소개</p>
+                </a>
+                <a href="/play">
+                    <b>PLAY</b>
+                    <p>플레이하기</p>
+                </a>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
