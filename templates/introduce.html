@@ -12,26 +12,38 @@
 
 {% block content %}
     <section id="introduce">
-        <div class="wrapper">
-            <b>지금까지 이런 게임은 없었다!</b>
-            <p>
-                현실의 RC카와 MR(Mixed Reality)가 만나
-                새로운 환경의 플레이를 제공합니다.
-                <br><br>
-                나의 RC카의 시점에서 
-                화려한 이펙트와 함께 게임을 즐길 수 있습니다.
-                <br><br>
-                필드에서 공격 아이템을 수집하여
-                상대방에게 사용하세요!<br>
-                어쩌면 특별한 아이템을 만날 수도 있습니다.
-                <br><br>
-                100초 동안 상대방과 겨루다가 
-                마지막에 더 많은 HP를 가진 사람이 승리합니다!
-                <br><br>
-                지금 바로 만나보세요!
-                <br><br>
-            </p>
-            <a href="/play">바로가기 →</a>
-        </div>
+        <article>
+            <img src="{{ url_for('static', filename='img/intro_img1.jpg') }}" class="img1">
+  
+            <div class="wrapper">
+                <b>지금까지 이런 게임은 없었다!</b>
+                <p>
+                    현실의 RC카와 MR(Mixed Reality)이 만나<br>
+                    지금까지 경험해보지 못한 <br>
+                    새로운 환경의 플레이를 제공합니다
+                    <br><br>
+                    나의 RC카와 함께 모험을 떠나보세요!
+                </p>
+            </div>
+        </article>
+        <article>
+            <div class="wrapper">
+                <b>화려한 공격을 사용해보세요!</b>
+                <p>
+                    필드에서 공격 아이템을 수집하여
+                    상대방에게 사용하세요!<br>
+                    어쩌면 특별한 아이템을 만날 수도 있습니다.
+                    <br><br>
+                    100초 동안 상대방과 겨루어<br>
+                    더 많은 HP를 가진 사람이 승리합니다!
+                    <br><br>
+                    지금 바로 만나보세요!
+                    <br><br>
+                </p>
+                <a href="/play">바로가기 →</a>
+            </div>
+
+            <img src="{{ url_for('static', filename='img/intro_img2.jpg') }}" class="img2">
+        </article>
     </section>
 {% endblock %}
