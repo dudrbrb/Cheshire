@@ -9,22 +9,24 @@
 {% block content %}
     <section id="play">
         <section>
-            <h1>RC Car Camera</h1>
-            <img src="{{ url_for('video_feed') }}" width="640" height="480">
+            <!-- 영상 스트리밍 -->
+            <img src="/video_feed" alt="Video Stream">
         </section>
     </section>
 {% endblock %}
 
 {% block extra_scripts %}
+    <!-- 키보드 입력 처리 -->
     <script>
         document.addEventListener('keydown', function(event) {
             let command = '';
-            switch (event.key) {
+
+            switch(event.code) {
                 case 'ArrowUp':
-                    command = 'backward';
+                    command = 'forward';
                     break;
                 case 'ArrowDown':
-                    command = 'forward';
+                    command = 'backward';
                     break;
                 case 'ArrowLeft':
                     command = 'left';
@@ -32,22 +34,21 @@
                 case 'ArrowRight':
                     command = 'right';
                     break;
-                case ' ':
+                case 'Space':
                     command = 'stop';
                     break;
-                case 'Escape':
-                    command = 'exit';
-                    break;
+                default:
+                    return;
             }
-            if (command !== '') {
-                fetch('/control', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'command=' + command,
-                });
-            }
+
+            // 서버에 키보드 명령 전송
+            fetch('/control', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'command=' + command
+            }).catch(error => console.error('Error:', error));
         });
     </script>
 {% endblock %}
